@@ -31,11 +31,11 @@ jobs:
       with:
         server_address: smtp.gmail.com
         server_port: 587
-        username: ${{ secrets.EMAIL_USER }}
-        password: ${{ secrets.EMAIL_PASS }}
+        username: ${{ secrets.MAIL_USERNAME }}
+        password: ${{ secrets.MAIL_PASSWORD }}
         subject: "✅ Build Passed"
-        to: ${{ secrets.EMAIL_USER }}
-        from: ${{ secrets.EMAIL_USER }}
+        to: ${{ secrets.MAIL_RECEIVER }}
+        from: ${{ secrets.MAIL_SENDER }}
         content_type: text/html
         body: |
           <h2>GitHub CI Build Passed</h2>
