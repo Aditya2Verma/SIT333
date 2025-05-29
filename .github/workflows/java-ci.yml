@@ -21,7 +21,9 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn -B package
+        run: |
+          cd tak9.1p
+          mvn -B package
 
       - name: Send success email
         if: success()
@@ -35,7 +37,7 @@ jobs:
           to: ${{ secrets.MAIL_RECEIVER }}
           from: ${{ secrets.SENDER_EMAIL }}
           body: |
-            ✅ The GitHub Actions build for your project succeeded successfully!
+            ✅ Build succeeded!
 
       - name: Send failure email
         if: failure()
@@ -49,4 +51,4 @@ jobs:
           to: ${{ secrets.MAIL_RECEIVER }}
           from: ${{ secrets.SENDER_EMAIL }}
           body: |
-            ❌ The GitHub Actions build for your project failed.
+            ❌ Build failed.
