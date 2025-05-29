@@ -1,4 +1,4 @@
-name: Node.js CI with Email Notification
+name: Java CI with Email Notification
 
 on:
   push:
@@ -14,16 +14,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
-          node-version: '16'
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
 
       - name: Run tests
-        run: echo "✅ Dummy test passed"
+        run: mvn test
 
       - name: Send success email
         if: success()
@@ -34,9 +35,11 @@ jobs:
           secure: true
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "✅ Build Succeeded"
+          subject: "✅ Java CI Build Succeeded"
           to: ${{ secrets.MAIL_RECEIVER }}
           from: ${{ secrets.SENDER_EMAIL }}
           body: |
-            ✅ The GitHub Actions build for your project succeeded successfully!
+            ✅ Your Java project build and tests have succeeded!
+            ✅ Triggered by: ${{ github.event_name }}
+            ✅ Commit: ${{ github.sha }}
           debug: true
