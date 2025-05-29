@@ -25,22 +25,6 @@ jobs:
     - name: Run tests
       run: npm test
 
-    - name: Send Email on Failure
-      if: failure()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.EMAIL_USER }}
-        password: ${{ secrets.EMAIL_PASS }}
-        subject: "Build Failed"
-        to: ${{ secrets.EMAIL_USER }}
-        from: ${{ secrets.EMAIL_USER }}
-        content_type: text/html
-        body: |
-          <h2>GitHub CI Build Failed</h2>
-          <p>Check the build logs: <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Build</a></p>
-
     - name: Send Email on Success
       if: success()
       uses: dawidd6/action-send-mail@v3
