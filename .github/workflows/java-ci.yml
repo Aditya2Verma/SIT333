@@ -33,7 +33,7 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USER }}
         password: ${{ secrets.EMAIL_PASS }}
-        subject: "Build Passed"
+        subject: "✅ Build Passed"
         to: ${{ secrets.EMAIL_USER }}
         from: ${{ secrets.EMAIL_USER }}
         content_type: text/html
