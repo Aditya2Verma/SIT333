@@ -93,4 +93,18 @@ class TaskInboxTest {
         assertEquals(1, tasks.size());
         assertEquals("Task A", tasks.get(0));
     }
+    @Test
+    void testPreventDuplicateSubmission() {
+        TaskInbox inbox = new TaskInbox();
+        assertTrue(inbox.submitTask("student001", "T123", "file1.pdf"));
+        assertFalse(inbox.submitTask("student001", "T123", "file1_updated.pdf"));
+    }
+    
+    @Test
+    void testInvalidSubmission() {
+        TaskInbox inbox = new TaskInbox();
+        assertFalse(inbox.submitTask("student001", "T123", ""));  // empty file
+        assertFalse(inbox.submitTask(null, "T123", "file1.pdf")); // null student
+}
+
 }
